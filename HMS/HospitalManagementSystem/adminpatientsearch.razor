@@ -1,0 +1,88 @@
+@page "/adminpatientsearch"
+
+<h3>Admin Patient Search</h3>
+
+<input @bind="SearchText" placeholder="Search by ID or Name" />
+<button @onclick="Search">Search</button>
+
+@if (Patients != null && Patients.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var patient in Patients)
+            {
+                <tr>
+                    <td>@patient.ID</td>
+                    <td>@patient.FirstName</td>
+                    <td>@patient.LastName</td>
+                    <td>@patient.Age</td>
+                    <!-- Add more cells as needed -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (SearchPerformed)
+{
+    <p>No patients found.</p>
+}
+
+<button @onclick="GoBack">Go Back</button>
+<button @onclick="Logout">Logout</button>
+
+@code {
+    private string SearchText { get; set; }
+    private List<Patient> Patients { get; set; }
+    private bool SearchPerformed { get; set; }
+
+    private async Task Search()
+    {
+        if (!string.IsNullOrWhiteSpace(SearchText))
+        {
+            // Simulate searching patient data
+            Patients = await SearchPatients(SearchText);
+            SearchPerformed = true;
+        }
+    }
+
+    private async Task<List<Patient>> SearchPatients(string searchText)
+    {
+        // You need to implement the logic to search for patients using the provided searchText
+        // For example, you can call an API endpoint or access a database
+        // Replace the below code with your actual search logic
+        return await Task.FromResult(new List<Patient>
+        {
+            new Patient { ID = 1, FirstName = "John", LastName = "Doe", Age = 30 },
+            new Patient { ID = 2, FirstName = "Jane", LastName = "Smith", Age = 25 }
+            // Add more patients as needed
+        });
+    }
+
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/adminpatientlist");
+    }
+
+    private void Logout()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+
+    public class Patient
+    {
+        public int ID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+        // Add more properties as needed
+    }
+}

@@ -1,0 +1,52 @@
+@page "/availablerooms"
+
+<h3>Available Rooms</h3>
+
+@if (Rooms != null && Rooms.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Room ID</th>
+                <th>Room Type</th>
+                <th>Occupancy Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in Rooms)
+            {
+                <tr>
+                    <td>@room.RoomID</td>
+                    <td>@room.RoomType</td>
+                    <td>@room.OccupancyStatus</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No available rooms.</p>
+}
+
+<button @onclick="GoToStaff">Go To Staff</button>
+<button @onclick="Logout">Logout</button>
+
+@code {
+    private List<Room> Rooms;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Rooms = await UserService.GetAvailableRooms();
+    }
+
+    private void GoToStaff()
+    {
+        NavigationManager.NavigateTo("/staff");
+    }
+
+    private void Logout()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+}
