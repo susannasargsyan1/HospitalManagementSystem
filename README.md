@@ -13,11 +13,7 @@ The Hospital Management System is a comprehensive software solution designed to 
 
 ## Technologies Used
 
-- **C#**: The project is developed using the C# programming language.
-- **Blazor**: Blazor is used for building interactive web user interfaces in .NET.
-- **Entity Framework Core**: Entity Framework Core is utilized for data access and database management.
-- **SQL Server**: Data is stored in a SQL Server database for efficient data retrieval and management.
-- **Authentication and Authorization**: Authentication and authorization mechanisms are implemented to ensure secure access to the system's features and data.
+For the development of the project, MS SQL, ASP.NET Core Blazor, Radzen Blazor components and Entity Framework have been used.
 
 
 ## License
