@@ -1,0 +1,47 @@
+@page "/doctor-patient-discharge"
+@using HospitalManagementSystem.Models
+@inject UserService UserService
+
+<h1>Doctor Patient Discharge</h1>
+
+@if (Patients != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Discharge</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var patient in Patients)
+            {
+                <tr>
+                    <td>@patient.Name</td>
+                    <td><button @onclick="() => DischargePatient(patient.Id)">Discharge</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    List<Patient> Patients;
+
+    protected override async Task OnInitializedAsync()
+    {
+        string doctorId = await UserService.GetDoctorId(Login.UserId); // Assuming UserService handles getting doctor's ID
+        Patients = await UserService.GetDoctorPatientList(doctorId); // Assuming UserService handles getting doctor's patient list
+    }
+
+    private async Task DischargePatient(string patientId)
+    {
+        await UserService.PatientDischarge(patientId); // Assuming UserService handles discharging patient
+        Patients = await UserService.GetDoctorPatientList(Login.UserId); // Assuming UserService handles getting doctor's patient list
+        StateHasChanged(); // Notify Blazor to re-render the component
+    }
+}

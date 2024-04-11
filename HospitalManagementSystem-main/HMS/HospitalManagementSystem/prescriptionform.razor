@@ -1,0 +1,54 @@
+@page "/prescriptionform"
+
+<h3>Prescription Form</h3>
+
+<div>
+    <label for="patientName">Patient Name:</label>
+    <input id="patientName" type="text" @bind="PName" />
+</div>
+<div>
+    <label for="patientAge">Patient Age:</label>
+    <input id="patientAge" type="text" @bind="PAge" />
+</div>
+<div>
+    <label for="medicine">Medicine:</label>
+    <input id="medicine" type="text" @bind="Medicine" />
+</div>
+<div>
+    <label for="advice">Advice:</label>
+    <input id="advice" type="text" @bind="Advice" />
+</div>
+<div>
+    <label for="test">Test:</label>
+    <input id="test" type="text" @bind="Test" />
+</div>
+
+<button @onclick="GoToDoctor">Go To Doctor</button>
+<button @onclick="GoToLogin">Log Out</button>
+
+@code {
+    private string PName { get; set; }
+    private string PAge { get; set; }
+    private string Medicine { get; set; }
+    private string Advice { get; set; }
+    private string Test { get; set; }
+
+    private void GoToDoctor()
+    {
+        NavigationManager.NavigateTo("/doctor");
+    }
+
+    private void GoToLogin()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+
+    protected override void OnInitialized()
+    {
+        PName = PrescriptionForm.pf.PName;
+        PAge = PrescriptionForm.pf.PAge;
+        Medicine = PrescriptionForm.pf.Medicine;
+        Advice = PrescriptionForm.pf.Advice;
+        Test = PrescriptionForm.pf.Test;
+    }
+}

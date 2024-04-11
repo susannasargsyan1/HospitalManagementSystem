@@ -1,0 +1,70 @@
+@page "/room"
+
+<h3>Room</h3>
+
+<!-- Display the list of rooms -->
+@if (RoomList != null && RoomList.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Room ID</th>
+                <th>Room Type</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in RoomList)
+            {
+                <tr>
+                    <td>@room.RoomID</td>
+                    <td>@room.RoomType</td>
+                    <!-- Add more columns as needed -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No rooms available.</p>
+}
+
+<button class="btn btn-primary" @onclick="NavigateToAdmin">Back to Admin</button>
+
+@code {
+    // Define a class to represent room data
+    public class RoomModel
+    {
+        public int RoomID { get; set; }
+        public string RoomType { get; set; }
+        // Add more properties as needed
+    }
+
+    // Define a list to store room data
+    private List<RoomModel> RoomList { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Load room data when the component is initialized
+        LoadRoomData();
+    }
+
+    private void LoadRoomData()
+    {
+        // Simulate loading room data from a database or service
+        // You should replace this with your actual data retrieval logic
+        RoomList = new List<RoomModel>
+        {
+            new RoomModel { RoomID = 1, RoomType = "Single" },
+            new RoomModel { RoomID = 2, RoomType = "Double" },
+            // Add more room data as needed
+        };
+    }
+
+    private void NavigateToAdmin()
+    {
+        // Navigate back to the Admin page
+        NavigationManager.NavigateTo("/admin");
+    }
+}

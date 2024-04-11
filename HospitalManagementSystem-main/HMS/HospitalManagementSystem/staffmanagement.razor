@@ -1,0 +1,58 @@
+@page "/staff-management"
+@using HospitalManagementSystem.Models
+@inject NavigationManager NavigationManager
+
+<h1>Staff Management</h1>
+
+@if (StaffID != null)
+{
+    <div>
+        <h2>Staff ID</h2>
+        <p>@StaffID</p>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+<button @onclick="GoToAddStaff">Add Staff</button>
+<button @onclick="GoToRemoveStaff">Remove Staff</button>
+<button @onclick="GoToEditStaff">Edit Staff</button>
+<button @onclick="GoToStaffSearch">Search Staff</button>
+<button @onclick="GoToAdmin">Back to Admin</button>
+
+@code {
+    private string StaffID;
+
+    protected override void OnInitialized()
+    {
+        // Fetch staff ID from the parent component (Admin)
+        StaffID = Admin.am.TextBox1Text;
+    }
+
+    private void GoToAddStaff()
+    {
+        NavigationManager.NavigateTo("/add-staff");
+    }
+
+    private void GoToRemoveStaff()
+    {
+        NavigationManager.NavigateTo("/remove-staff");
+    }
+
+    private void GoToEditStaff()
+    {
+        NavigationManager.NavigateTo("/edit-staff");
+    }
+
+    private void GoToStaffSearch()
+    {
+        NavigationManager.NavigateTo("/staff-search");
+    }
+
+    private void GoToAdmin()
+    {
+        NavigationManager.NavigateTo("/admin");
+    }
+}

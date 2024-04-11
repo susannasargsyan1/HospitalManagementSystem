@@ -1,0 +1,44 @@
+@page "/adddoctor"
+
+<h3>Add Doctor</h3>
+
+@if (successMessage != null)
+{
+    <div class="alert alert-success" role="alert">
+        @successMessage
+    </div>
+}
+
+<div class="form-group">
+    <label for="firstName">First Name:</label>
+    <input type="text" class="form-control" id="firstName" @bind="doctor.FirstName" />
+</div>
+
+<div class="form-group">
+    <label for="lastName">Last Name:</label>
+    <input type="text" class="form-control" id="lastName" @bind="doctor.LastName" />
+</div>
+
+<!-- Add more form fields as needed -->
+
+<button class="btn btn-primary" @onclick="AddDoctor">Add Doctor</button>
+
+@code {
+    private Doctor doctor = new Doctor();
+    private string successMessage;
+
+    private void AddDoctor()
+    {
+        // Call your method to add the doctor here
+        // You can use Dependency Injection to inject services if needed
+        // For simplicity, I'm just setting a success message here
+        successMessage = "Doctor Added";
+    }
+
+    public class Doctor
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        // Add more properties as needed
+    }
+}

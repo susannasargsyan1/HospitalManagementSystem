@@ -1,0 +1,18 @@
+@page "/availabledoctors"
+
+<h3>Available Doctors</h3>
+
+<button @onclick="GoToStaff">Go To Staff</button>
+<button @onclick="Logout">Logout</button>
+
+@code {
+    private void GoToStaff()
+    {
+        NavigationManager.NavigateTo("/staff");
+    }
+
+    private void Logout()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+}

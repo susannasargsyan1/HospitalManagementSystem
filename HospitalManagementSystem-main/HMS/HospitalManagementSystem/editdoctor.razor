@@ -1,0 +1,40 @@
+@page "/edit-doctor"
+@using HospitalManagementSystem.Models
+@inject NavigationManager NavigationManager
+
+<h1>Edit Doctor</h1>
+
+@if (DoctorID != null)
+{
+    <div>
+        <h2>Doctor ID</h2>
+        <p>@DoctorID</p>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+<button @onclick="GoToEditDoctor2">Edit Doctor Details</button>
+<button @onclick="GoToDoctorManagement">Back to Doctor Management</button>
+
+@code {
+    private string DoctorID;
+
+    protected override void OnInitialized()
+    {
+        // Fetch doctor ID from the parent component (DoctorManagement)
+        DoctorID = DoctorManagement.dm.TextBox1Text;
+    }
+
+    private void GoToEditDoctor2()
+    {
+        NavigationManager.NavigateTo("/edit-doctor-2");
+    }
+
+    private void GoToDoctorManagement()
+    {
+        NavigationManager.NavigateTo("/doctor-management");
+    }
+}
